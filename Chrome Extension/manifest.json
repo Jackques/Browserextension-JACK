@@ -1,0 +1,24 @@
+{
+    "name": "JACK",
+    "version": "1.0.0",
+    "manifest_version": 2,
+    "description": "An extension to get HTML produced by Jenkins about Cypress E2E tests and nicely formatted on a seperate page",
+    "icons": {
+        "128": "icon_128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": ["<all_urls>"],
+            "js": ["content.js"]
+        }
+    ],
+    "browser_action": {
+        "default_icon": "icon.png",
+        "default_title": "JACK (Jenkins ANVA Cypress Knitter)",
+        "default_popup": "popup.html"
+    },
+    "background": {
+        "scripts": ["background.js"]
+    },
+    "permissions": ["tabs", "activeTab"]
+}

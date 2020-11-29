@@ -1,15 +1,13 @@
 document.addEventListener('DOMContentLoaded', function(){
     console.log('tab content loaded');
-    alert('tab content loaded');
+    // alert('tab content loaded! Open that console now here so my debugger pauses the code for you!');
+    // debugger;
 
 
     chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
-        debugger;
-        alert('hey i got something too!');
+        
+        // alert('hey i got TAB too! ');
+        // debugger;
         document.getElementById("weird").innerHTML = JSON.stringify(request);
-        console.dir('hey i got something too!: '+request);
-        console.dir('hey i got something too!: '+sender);
-        console.dir('hey i got something too!: '+sendResponse);
-        // window.page[request.url] = request.count
     });
 });

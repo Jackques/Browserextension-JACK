@@ -8,25 +8,85 @@ $( document ).ready(function() {
     I can..
     A. Put something on the global window obj, make the popup script send a message (via runtime) and this script (or background) can send something back)
     B. Put something in localstorage and make popup.js check if (periodically)
-    C. Do nothing, except for a simple check which checks if page is ready when this script gets the order to gather page data below
+    C. > Do nothing, except for a simple check which checks if page is ready when this script gets the order to gather page data below
     */
 });
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
-    // debugger;
-    // alert('hey CONTENT 1 got something');
-    console.log('hey CONTENT 1 got something')
+    console.log('hey CONTENT 1 got something');
 
-        var x = document.getElementsByTagName("body");
-        x = x[0].innerHTML;
-        var myElement = document.getElementsByClassName("pipeline-node-581"); // for some reason, my vars lose it's HTML data when it transfers over to another script
-        // debugger;
 
-        sendResponse(
-            {
-                'test_return_object_1': x,
-                'test_return_object_2': myElement
+
+//todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom, alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
+//todo: Get the CSS class 'pipeline-node-???' for each 'running for..' container
+const someArray = [];
+$("body").find("*").contents().filter(function(){
+	if(this.nodeType === 3 && this.textContent.trim() === "(Results)"){
+		someArray.push({
+		    resultsTextNode: this,
+		    resultsFilteredObject: {}
+		});
+	}
+});
+    debugger;
+
+    $(someArray).each(function( index, element ) {
+        collectTestResult(element.resultsTextNode);
+    });
+
+    function collectTestResult(element){
+        testResult = {
+            totalTests: NaN,
+            passedTests: NaN,
+            failedTests: NaN,
+            pendingTests: NaN,
+            skippedTests: NaN,
+            durationTest: "",
+            specPathTest: ""
+        }
+
+        while (element.textContent.trim() !== '└────────────────────────────────────────────────────────────────────────────────────────────────┘') {
+
+            //todo: if result is test failed, abort this if and go backwards (previous element siblings untill you reach the last testnumber) and get the reason the test failed.
+            //todo: think i might need to do this anyway, even if the test succeeds because i need to get the name of the test too
+
+            // todo: can also refactor all these below in a nice method
+            if(element.textContent.includes("│ Tests:")){
+                testResult.totalTests = element.textContent.replace(/\D/g,'');
             }
-            );
+            if(element.textContent.includes("│ Passing:")){
+                 testResult.passedTests = element.textContent.replace(/\D/g,'');
+            }
+            if(element.textContent.includes("│ Failing:")){
+                 testResult.failedTests = element.textContent.replace(/\D/g,'');
+            }
+            if(element.textContent.includes("│ Pending:")){
+                 testResult.pendingTests = element.textContent.replace(/\D/g,'');
+            }
+            if(element.textContent.includes("│ Skipped:")){
+                 testResult.skippedTests = element.textContent.replace(/\D/g,'');
+            }
+            if(element.textContent.includes("│ Duration:")){
+                 testResult.durationTest = element.textContent.trim().substr("│ Duration:".length).trim();
+                 //todo: if lastchar is |, then remove it, THEN trim() the remaining text
+                 // todo: Maybe i can do this for all of these?
+            }
+            if(element.textContent.includes("│ Spec Ran:")){
+                  testResult.specPathTest = element.textContent.trim().substr("│ Spec Ran:".length).trim();
+                  // todo: Some specs may consist if multiple lines, so i need to check if there are siblings which continue the test and merge them if so.
+            }
+            element = element.nextSibling;
+        }
+        return testResult;
+    };
+    debugger;
+
+
+    sendResponse(
+        {
+            'test_return_object_1': x,
+            'test_return_object_2': myElement
+        }
+        );
 
 });

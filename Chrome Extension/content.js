@@ -31,7 +31,7 @@ $("body").find("*").contents().filter(function(){
     debugger;
 
     $(someArray).each(function( index, element ) {
-        collectTestResult(element.resultsTextNode);
+        someArray[index].resultsFilteredObject = collectTestResult(element.resultsTextNode);
     });
 
     function collectTestResult(element){
@@ -51,28 +51,29 @@ $("body").find("*").contents().filter(function(){
             //todo: think i might need to do this anyway, even if the test succeeds because i need to get the name of the test too
 
             // todo: can also refactor all these below in a nice method
-            if(element.textContent.includes("│ Tests:")){
+            if(element.textContent.includes("Tests:")){
                 testResult.totalTests = element.textContent.replace(/\D/g,'');
             }
-            if(element.textContent.includes("│ Passing:")){
+            if(element.textContent.includes("Passing:")){
                  testResult.passedTests = element.textContent.replace(/\D/g,'');
             }
-            if(element.textContent.includes("│ Failing:")){
+            if(element.textContent.includes("Failing:")){
                  testResult.failedTests = element.textContent.replace(/\D/g,'');
             }
-            if(element.textContent.includes("│ Pending:")){
+            if(element.textContent.includes("Pending:")){
                  testResult.pendingTests = element.textContent.replace(/\D/g,'');
             }
-            if(element.textContent.includes("│ Skipped:")){
+            if(element.textContent.includes("Skipped:")){
                  testResult.skippedTests = element.textContent.replace(/\D/g,'');
             }
-            if(element.textContent.includes("│ Duration:")){
-                 testResult.durationTest = element.textContent.trim().substr("│ Duration:".length).trim();
+            if(element.textContent.includes("Duration:")){
+                 testResult.durationTest = element.textContent.replace(/\│/g, '').trim().substr("Duration:".length).trim()
+                //  testResult.durationTest = element.textContent.trim().substr("│ Duration:".length).trim();
                  //todo: if lastchar is |, then remove it, THEN trim() the remaining text
                  // todo: Maybe i can do this for all of these?
             }
-            if(element.textContent.includes("│ Spec Ran:")){
-                  testResult.specPathTest = element.textContent.trim().substr("│ Spec Ran:".length).trim();
+            if(element.textContent.includes("Spec Ran:")){
+                  testResult.specPathTest = element.textContent.replace(/\│/g, '').trim().substr("Spec Ran:".length).trim();
                   // todo: Some specs may consist if multiple lines, so i need to check if there are siblings which continue the test and merge them if so.
             }
             element = element.nextSibling;

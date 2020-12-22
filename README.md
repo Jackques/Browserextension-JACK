@@ -2,7 +2,10 @@ Browserextension-JACK
 
 How to get the data:
 0. [DONE] Bare-bones structure of the app
-0.1 [0%] Inplement Typescript for (at least) the content.js? (with dev mode on). Much easier when i can create interfaces, classes etc.
+0.1 [0%] Inplement Typescript for (at least) the content.js? (with dev mode on). Much easier when i can create interfaces, classes etc. 
+    Found a source to do just that: https://github.com/Microsoft/TypeScript/issues/2986 
+    I can either use multiple tsconfig files or omit the --out flag when compiling.
+    it will produce multiple .js files. It may be a good idea to use something like Grunt to pre-concatinate the Typescript files which are needed to order to build a specific .js file.
 
 1. [DONE] Get each 'pipeline-node-???'.
 1a. [80%] Get all instances of "result:" on your page, then get for each of them their respective containers and list their seperate classes AND list their seperate testcase names!. Each node before that will most likely contain the individual test cases. This makes search perations MUCH easier and less data intesive. 

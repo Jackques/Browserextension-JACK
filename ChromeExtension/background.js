@@ -24,7 +24,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
 
             if(responseFromContentScript){
 
-                chrome.tabs.create({url: 'tab.html'}, (tab) => {
+                chrome.tabs.create({url: 'templates/tab.html'}, (tab) => {
                     // debugger;
             
                     chrome.tabs.executeScript(tab.id, {file:"tab.js"}, function() {

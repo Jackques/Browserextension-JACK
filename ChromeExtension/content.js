@@ -43,7 +43,7 @@ $("body").find("*").contents().filter(function(){
             skippedTests: NaN,
             durationTest: "",
             specPathTest: ""
-        }
+        };
 
         while (element.textContent.trim() !== '└────────────────────────────────────────────────────────────────────────────────────────────────┘') {
 

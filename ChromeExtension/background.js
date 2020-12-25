@@ -4,7 +4,7 @@
 // (BUT AFTER.. the page has ben loaded! Hence why I need to use the 'check if contentscript has been loaded callback')
 
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
-     debugger;
+     // debugger;
 
      if(request === "rdy"){
         return;
@@ -20,10 +20,10 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
     chrome.tabs.query({active: true}, function(tabs){
         // debugger;
         chrome.tabs.sendMessage(tabs[0].id, 'jacktest', function(responseFromContentScript){
-            // debugger;
+            debugger;
 
             if(responseFromContentScript){
-
+                // debugger;
                 chrome.tabs.create({url: 'templates/tab.html'}, (tab) => {
                     // debugger;
             

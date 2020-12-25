@@ -17,18 +17,18 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
 
 
 
-//todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom, alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
-//todo: Get the CSS class 'pipeline-node-???' for each 'running for..' container
-const someArray = [];
-$("body").find("*").contents().filter(function(){
-	if(this.nodeType === 3 && this.textContent.trim() === "(Results)"){
-		someArray.push({
-		    resultsTextNode: this,
-		    resultsFilteredObject: {}
-		});
-	}
-});
-    debugger;
+    //todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom, alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
+    //todo: Get the CSS class 'pipeline-node-???' for each 'running for..' container
+    const someArray = [];
+    $("body").find("*").contents().filter(function(){
+        if(this.nodeType === 3 && this.textContent.trim() === "(Results)"){
+            someArray.push({
+                resultsTextNode: this,
+                resultsFilteredObject: {}
+            });
+        }
+    });
+    // debugger;
 
     $(someArray).each(function( index, element ) {
         someArray[index].resultsFilteredObject = collectTestResult(element.resultsTextNode);
@@ -83,11 +83,27 @@ $("body").find("*").contents().filter(function(){
     debugger;
 
 
+
     sendResponse(
-        {
-            'test_return_object_1': x,
-            'test_return_object_2': myElement
-        }
+        // new Promise(function(myResolve, myReject) {
+        //     myResolve(someArray)
+        // }) // return empty object
+        someArray
+        // Promise.resolve("Dummy response to keep the console quiet")
         );
+    // Result: dit geeft eenmalig een empty object terug?
+
+    // return Promise.resolve("Jack");
+    // [enabling only this line] Result: dit geeft een undefined terug
+    // [enabling this line AND still using sendResponse to send back someArray] Result:
+
+    // todo: try this if above code doesnt work
+    // return true;
+
+    // only sending back the actual result gave me an error at first?
+    // then i tried several solutions (see above) https://github.com/mozilla/webextension-polyfill/issues/130
+    // none worked, then i tried to send back the actual result again (someArray)..
+    // and this time it did work.. (at least when i tried without debugger statements)
+    // NOW IT MAGICALLY WORKS??
 
 });

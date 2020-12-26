@@ -1,4 +1,4 @@
-$("span[class^='pipeline-node-']").not('.pipeline-node-592').remove()
+$( "span[class^='pipeline-node-']:not(span.pipeline-node-581)" ).remove();
 
 /*
 Use code above to shorten the page. Jquery has been added to the page for this explicit reason.

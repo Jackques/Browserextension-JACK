@@ -19,13 +19,14 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
 
     //todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom, alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
     //todo: Get the CSS class 'pipeline-node-???' for each 'running for..' container
-    const someArray = [];
+    const someArray: Array<any> = [];
     $("body").find("*").contents().filter(function(){
-        if(this.nodeType === 3 && this.textContent.trim() === "(Results)"){
+        if(this.nodeType === 3 && this.textContent && this.textContent.trim() === "(Results)"){
             someArray.push({
                 resultsTextNode: this,
                 resultsFilteredObject: {}
             });
+            return '';
         }
     });
     // debugger;
@@ -34,8 +35,8 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
         someArray[index].resultsFilteredObject = collectTestResult(element.resultsTextNode);
     });
 
-    function collectTestResult(element){
-        testResult = {
+    function collectTestResult(element: any){
+        let testResult = {
             totalTests: NaN,
             passedTests: NaN,
             failedTests: NaN,

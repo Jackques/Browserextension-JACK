@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function(){
-    document.getElementById("jack").onclick = function() {
+    $('#jack').click(() => {
         
-        // alert('hi 2');
+        //alert('hi 2');
         // TODO: ik kan hier bij de ontvanger (in background.js) een check opnemen die checkt of page load rdy is. (OF.. uiteindelijk in content.js)
         // want popup.js is een compleet andere window zo blijkt (dus nee, variabele zetten op window object gaat niet)
 
@@ -12,5 +12,5 @@ document.addEventListener('DOMContentLoaded', function(){
             url: 'test',
             count: 'jack'
         })
-    };
+    });
 });

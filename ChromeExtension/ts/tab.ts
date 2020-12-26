@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function(){
         
         // alert('hey i got TAB too! ');
         // debugger;
-        document.getElementById("weird").innerHTML = JSON.stringify(request);
+        // document.getElementById("weird").innerHTML = JSON.stringify(request);
+        $("weird").text(JSON.stringify(request));
     });
 });

@@ -85,25 +85,36 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
 
 
     sendResponse(
+        someArray
         // new Promise(function(myResolve, myReject) {
         //     myResolve(someArray)
-        // }) // return empty object
-        someArray
+        // }) 
+        // someArray
         // Promise.resolve("Dummy response to keep the console quiet")
         );
     // Result: dit geeft eenmalig een empty object terug?
 
     // return Promise.resolve("Jack");
     // [enabling only this line] Result: dit geeft een undefined terug
-    // [enabling this line AND still using sendResponse to send back someArray] Result:
+    // [enabling this line AND still using sendResponse to send back someArray] Result: ???
 
     // todo: try this if above code doesnt work
-    // return true;
+    // [enabling this line AND still using sendResponse to send back someArray] Result: works perfectly, return the array result
+
+    // Returning a new Promise with the array result in the myResolve AND enabling return: returns undefined
+    return true;
 
     // only sending back the actual result gave me an error at first?
     // then i tried several solutions (see above) https://github.com/mozilla/webextension-polyfill/issues/130
     // none worked, then i tried to send back the actual result again (someArray)..
     // and this time it did work.. (at least when i tried without debugger statements)
     // NOW IT MAGICALLY WORKS??
+
+    // Update:
+    /*
+    sendResponse(someArray) AND return true seems to work despite getting an error when I first tested it on my laptop (and despite the solution i red online).
+    I'm leaving it for now and will investigate this further when i encounter the error again or will continue to experiment with this later.
+    I still would want to be able to display a 'loading..' modal by using the time between the calculation and retrieving the results. Would be a nice addon.
+    */
 
 });

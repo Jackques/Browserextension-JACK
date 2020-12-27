@@ -32,8 +32,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
                     //     // This executes only after your content script executes
                         chrome.tabs.sendMessage(tab.id, responseFromContentScript);
                     });
-
-                })
+                  })
             }else{
                 console.log('HOLD YOUR HORSES! The page isnt fully loaded yet! Apparantly the content scripts loads automatically & immediatly but not the messageBus');
             }

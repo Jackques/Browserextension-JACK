@@ -15,9 +15,17 @@ $( document ).ready(function() {
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
     console.log('hey CONTENT 1 got something');
 
+    // Get all pipline node containers
+    const pipelineNodeContainers: Array<HTMLElement> = $("span[class^='pipeline-node-']").filter(function( index: Number, element: HTMLElement ): boolean {
+      console.dir(this); // does 'this' refer to the jquery array so i can loop ove it and check if i've already got the class?
+      // Doesnt seem to be possible with the jquery filter function. No biggie, just use an array outside of anon method.
+      console.dir(element);
+      debugger;
+      return true;
+    }).toArray()
 
-
-    //todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom, alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
+    //todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom,
+    //alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
     //todo: Get the CSS class 'pipeline-node-???' for each 'running for..' container
     const someArray: Array<any> = [];
     $("body").find("*").contents().filter((index: Number, element: Node): boolean => {

@@ -20,15 +20,15 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
     //todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom, alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
     //todo: Get the CSS class 'pipeline-node-???' for each 'running for..' container
     const someArray: Array<any> = [];
-    $("body").find("*").contents().filter(function(){
-        if(this.nodeType === 3 && this.textContent && this.textContent.trim() === "(Results)"){
-            someArray.push({
-                resultsTextNode: this,
-                resultsFilteredObject: {}
-            });
-            return '';
+    $("body").find("*").contents().filter((index: Number, element: Node): boolean => {
+        if (element.nodeType === 3 && element.textContent && element.textContent.trim() === "(Results)") {
+          someArray.push({
+            resultsTextNode: element,
+            resultsFilteredObject: {}
+          });
         }
-    });
+        return false;
+      });
     // debugger;
 
     $(someArray).each(function( index, element ) {
@@ -89,7 +89,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse){
         someArray
         // new Promise(function(myResolve, myReject) {
         //     myResolve(someArray)
-        // }) 
+        // })
         // someArray
         // Promise.resolve("Dummy response to keep the console quiet")
         );

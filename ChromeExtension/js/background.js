@@ -2,12 +2,14 @@
 // How to debug hte background.js script: https://stackoverflow.com/questions/18145282/where-to-find-code-and-console-to-debug-background-js-in-chrome-extension
 // The background script runs once (on installation or startup), while the content script runs with each new page 
 // (BUT AFTER.. the page has ben loaded! Hence why I need to use the 'check if contentscript has been loaded callback')
+console.log('background.js is ready');
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     // debugger;
     if (request === "rdy") {
         return;
     }
-    //    alert('hey BACKGROUND got something');
+    console.log('hey BACKGROUND got something');
+    
     //    console.log('hey i got something: '+request);
     //    console.log('hey i got something: '+sender);
     //    console.log('hey i got something: '+sendResponse);
@@ -35,6 +37,7 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     });
 });
 chrome.browserAction.onClicked.addListener(function (tab) {
+    console.log('browseraction clicked create tab popup.html');
     chrome.tabs.create({ url: 'popup.html' });
 });
 // todo: check if this is an (ANVA) Jenkins page

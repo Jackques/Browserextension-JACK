@@ -12,7 +12,6 @@ $(document).ready(function () {
 });
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     console.log('hey CONTENT 1 got something');
-    document.body.style.backgroundColor = 'red';
     //todo: NIEUWE AANPAK: alle textnodes opzoeken met de woorden 'Results', die in een lijst zetten, van ieder de siblings afgaan tot ik de testcontainer tegenkom, alle nodes van die testcontainer in een lokale lijst zetten en data uithalen.
     //todo: Get the CSS class 'pipeline-node-???' for each 'running for..' container
     var someArray = [];

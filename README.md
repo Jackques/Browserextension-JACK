@@ -41,3 +41,5 @@ Structure object like this: containers/nodes > testsuite/file >  testcasesgroup 
 6. Remove jquery from Rules example page, see if app still works.
 7. Test extension on different devices (work rdp, work laptop, homepc), see if this works
 8. Does it work on shorten pages (with my delete script) as well as longggg pages (which take a long time to load, and probably to send a response?)
+
+//test
